@@ -15,18 +15,31 @@ app.use(cors());
 
 app.use(express.static("public"));
 
-dotenv.config({ path: path.resolve(__dirname, "./.env") });
+app.use(cors());
+
+// app.use("/public", express.static(`${process.cwd()}/public`));
+
+// app.get("/", function (req, res) {
+//   res.sendFile(process.cwd() + "/views/index.html");
+// });
+
+// dotenv.config({ path: path.resolve(__dirname, "./.env") });
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "./build")));
 
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "./build", "index.html"))
-  );
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+  });
 } else {
   app.get("/", (req, res) => {
     res.send(`API is running on ${process.env.NODE_ENV}`);
   });
 }
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/views/index.html");
+});
 
 // app.use(express.static(__dirname + "/public"));
 //import Routes
@@ -42,9 +55,7 @@ app.use("/urlshortener", UrlShortenerRoute);
 // app.use("/", exercisetrackerAPI);
 
 // var exercisetrackerAPI = require("./src/route/exerciseTrackerAPI");
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/views/index.html");
-// });
+
 
 //conncet to database
 async function connect() {
