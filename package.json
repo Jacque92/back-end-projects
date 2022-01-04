@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server.js",
-    "build": "cd front-end-projects && npm install && npm run build"
+    "build": "cd back-end-projects && npm install && npm run build"
   },
   "eslintConfig": {
     "extends": [
