@@ -1,10 +1,12 @@
 var express = require("express");
 var mongoose = require("mongoose");
-
+var path=require('path');
 var router = express.Router();
 var bodyParser = require("body-parser");
 
 let responseObj = {};
+
+
 router.get("/api/:input", function (req, res) {
   let { input } = req.params;
 

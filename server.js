@@ -1,5 +1,4 @@
 "use strict";
-
 var express = require("express");
 var mongoose = require("mongoose");
 var app = express();
@@ -13,49 +12,44 @@ dotenv.config();
 
 app.use(cors());
 
-app.use(express.static("public"));
-
-app.use(cors());
-
-// app.use("/public", express.static(`${process.cwd()}/public`));
-
-// app.get("/", function (req, res) {
-//   res.sendFile(process.cwd() + "/views/index.html");
-// });
-
-// dotenv.config({ path: path.resolve(__dirname, "./.env") });
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "./build")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "./build", "index.html"));
-  });
 } else {
   app.get("/", (req, res) => {
     res.send(`API is running on ${process.env.NODE_ENV}`);
   });
 }
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/views/index.html");
-});
-
-// app.use(express.static(__dirname + "/public"));
 //import Routes
 const TimeStampRoute = require("./src/route/timeStamp");
 const HeaderParserRoute = require("./src/route/headerParser");
 const UrlShortenerRoute = require("./src/route/urlshortener");
+const ExerciseTrackerRoute = require("./src/route/exerciseTrackerAPI");
+const FileDataRoute = require("./src/route/fileMetaData");
 
+app.get("/timestamp", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+});
+
+app.get("/headerparser", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+});
+
+app.get("/urlshortener", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+});
+app.get("/exercisetracker", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+});
+app.get("/metadata", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+});
 //middleware
 app.use("/timestamp", TimeStampRoute);
 app.use("/headerparser", HeaderParserRoute);
 app.use("/urlshortener", UrlShortenerRoute);
-
-// app.use("/", exercisetrackerAPI);
-
-// var exercisetrackerAPI = require("./src/route/exerciseTrackerAPI");
-
+app.use("/exercisetracker", ExerciseTrackerRoute);
+app.use("/metadata", FileDataRoute);
 
 //conncet to database
 async function connect() {
