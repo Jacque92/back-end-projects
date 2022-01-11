@@ -11,10 +11,10 @@ Click this [link](https://back-end-projects.herokuapp.com/) to check it out.
 - [File Metadata Microservice](https://back-end-projects.herokuapp.com/metadata) 
 
 ## Usage
-install Node and npm
-run `npm install` 
-run `npm build`
-run `npm start`
+- install Node and npm
+- run `npm install` 
+- run `npm build`
+- run `npm start`
 
 
 
